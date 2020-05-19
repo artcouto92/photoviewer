@@ -137,8 +137,9 @@
 - (NSURL *)localFileURLForImage:(NSString *)image
 {
     Boolean isFirebase = [image rangeOfString:@"firebase"].length > 0;
+    Boolean isAws = [image rangeOfString:@"X-Amz-Algorithm=AWS4-HMAC-SHA256"].length > 0;
     NSString* webStringURL = image;
-    if (!isFirebase) {
+    if (!isFirebase && !isAws) {
       webStringURL = [image stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]];
     }
     NSURL* fileURL = [NSURL URLWithString:webStringURL];
